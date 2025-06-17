@@ -6,7 +6,22 @@ sources:
     schema: source_data
     tables:
       - name: customers
-      - name: orders
-      - name: products
-      - name: order_items
+        loaded_at_query: "SELECT MAX(CAST(loaded_at AS TIMESTAMP)) AS loaded_at FROM {{ this }}"
+        freshness:
+          warn_after: { count: 1, period: day }
 
+      - name: orders
+        loaded_at_query: "SELECT MAX(CAST(loaded_at AS TIMESTAMP)) AS loaded_at FROM {{ this }}"
+        freshness:
+          warn_after: { count: 1, period: day }
+          error_after: { count: 30, period: day }
+      - name: products
+        loaded_at_query: "SELECT MAX(CAST(loaded_at AS TIMESTAMP)) AS loaded_at FROM {{ this }}"
+        freshness:
+          warn_after: { count: 1, period: day }
+          error_after: { count: 30, period: day }
+      - name: order_items
+        loaded_at_query: "SELECT MAX(CAST(loaded_at AS TIMESTAMP)) AS loaded_at FROM {{ this }}"
+        freshness:
+          warn_after: { count: 1, period: day }
+          error_after: { count: 30, period: day }
