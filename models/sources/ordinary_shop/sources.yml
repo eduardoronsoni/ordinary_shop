@@ -1,0 +1,12 @@
+version: 2
+
+sources:
+  - name: ordinary_shop
+    database: dbt-studies-462323
+    schema: source_data
+    tables:
+      - name: customers
+      - name: orders
+      - name: products
+      - name: order_items
+
