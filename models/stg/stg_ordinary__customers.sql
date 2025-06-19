@@ -1,3 +1,8 @@
+/* This overwrites the materialization config passed on dbt_project */
+{{ config(
+    materialized='table' 
+) }}
+
 with source_data as (
     select 
         customer_id
@@ -9,5 +14,12 @@ with source_data as (
     from {{ source('ordinary_shop', 'customers') }}
 )
 
+, generate_sk as (
+    select 
+        {{ dbt_utils.generate_surrogate_key(['customer_id']) }} as customer_sk
+        , *
+    from source_data
+)
+
 select *
-from source_data
+from generate_sk

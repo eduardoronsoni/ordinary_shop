@@ -10,5 +10,12 @@ with source_data as (
     from {{ source('ordinary_shop', 'order_items')}}
 )
 
+,  generate_sk as (
+    select 
+        {{ dbt_utils.generate_surrogate_key(['order_id','product_id']) }} as order_item_sk
+        , *
+    from source_data
+)
+
 select *
-from source_data
+from generate_sk
