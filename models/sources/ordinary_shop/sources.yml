@@ -16,14 +16,14 @@ sources:
 
     tables:
       - name: customers
-        # freshness:
-        #   warn_after: 
-        #     count: 1 
-        #     period: day
-        #   error_after:
-        #     count: 3
-        #     period: day
-        # loaded_at_field: "CAST(loaded_at AS TIMESTAMP)"
+        freshness:
+          warn_after: 
+            count: 1 
+            period: day
+          error_after:
+            count: 3
+            period: day
+        loaded_at_field: "CAST(loaded_at AS TIMESTAMP)"
 
 
       - name: orders
