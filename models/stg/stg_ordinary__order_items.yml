@@ -1,0 +1,78 @@
+version: 2
+
+models:
+  - name: stg_ordinary__order_items
+    latest_version: 1
+    config:
+      contract:
+        enforced: true
+
+    columns:
+
+      - name: order_item_sk
+        description: "The original unique identifier for the order."
+        data_type: string # BigQuery equivalent for integer
+        constraints:
+          - type: not_null
+
+
+      - name: order_id
+        description: "The original unique identifier for the order."
+        data_type: string # BigQuery equivalent for integer
+        constraints:
+          - type: not_null
+
+      - name: product_id
+        description: "none at the moment"
+        data_type: string # BigQuery equivalent for varchar/text
+        constraints:
+          - type: not_null
+          # - type: unique # Ensures each customer has a unique surrogate key
+
+      - name: quantity
+        description: "none at the moment"
+        data_type: int
+        constraints:
+          - type: not_null
+
+      - name: unit_price
+        description: "none at the moment"
+        data_type: float64
+        constraints:
+          - type: not_null
+
+      - name: created_at
+        description: "Timestamp when the customer record was created in the source system."
+        data_type: TIMESTAMP
+
+      - name: updated_at
+        description: "Timestamp when the customer record was last updated in the source system."
+        data_type: TIMESTAMP
+        constraints:
+          - type: not_null
+
+      - name: loaded_at
+        description: "Timestamp when the record was loaded into the data warehouse."
+        data_type: TIMESTAMP
+        constraints:
+          - type: not_null
+
+
+    versions:
+      - v: 1
+        # config:
+        #   alias: stg_ordinary__order_items
+      
+      - v: 2
+        columns:
+          - include: "*" # "all" também funciona, mas "*" é mais comum
+            exclude: 
+              - created_at
+          # Adiciona a nova versão da coluna
+          - name: created_at
+            description: "The date when the customer record was created."
+            data_type: date
+
+
+
+
