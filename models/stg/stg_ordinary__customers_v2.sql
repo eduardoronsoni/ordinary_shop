@@ -23,3 +23,6 @@ with source_data as (
 
 select *
 from generate_sk
+{% if target.name == 'dev' %}
+where customer_name = 'Customer 1'
+{% endif %}
