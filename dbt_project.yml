@@ -35,6 +35,6 @@ models:
     stg:
       +materialized: table
     int:
-      +materialized: view
+      +materialized: table
     mart:
       +materialized: table

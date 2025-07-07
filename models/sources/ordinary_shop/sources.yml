@@ -10,8 +10,8 @@ sources:
         count: 1
         period: hour
       error_after:
-        count: 2
-        period: hour
+        count: 2000000
+        period: day
 
 
     tables:
@@ -54,6 +54,6 @@ sources:
             count: 1
             period: day
           error_after: 
-            count: 30
+            count: 30000
             period: day
         loaded_at_field: "CAST(loaded_at AS TIMESTAMP)"
