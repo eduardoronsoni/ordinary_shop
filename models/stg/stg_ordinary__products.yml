@@ -1,0 +1,43 @@
+version: 2
+
+models:
+  - name: stg_ordinary__products 
+    description: "Modelo de staging para os produtos da loja, incluindo uma chave substituta."
+    columns:
+      - name: product_sk
+        description: "Chave substituta gerada a partir do product_id."
+        tests:
+          - not_null
+          - unique
+
+      - name: product_id
+        description: "A chave primária original da tabela de produtos."
+        tests:
+          - not_null
+          - unique
+
+      - name: product_name
+        description: "O nome do produto."
+        tests:
+          - not_null
+      
+
+      - name: category
+        description: "A categoria à qual o produto pertence."
+        tests:
+          - not_null
+          - unique
+
+      - name: price
+        description: "O preço do produto."
+        tests:
+          - not_null
+
+      - name: created_at
+        description: "Timestamp de quando o produto foi criado."
+
+      - name: updated_at
+        description: "Timestamp da última atualização do produto."
+
+      - name: loaded_at
+        description: "Timestamp de quando o registro foi carregado no data warehouse."
