@@ -1,3 +1,10 @@
+{{
+    config(
+        required_tests=None
+    )
+}}
+
+
 with source_data as (
     select 
         product_id

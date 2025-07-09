@@ -1,16 +1,11 @@
-
-# Name your project! Project names should contain only lowercase characters
-# and underscores. A good package name should reflect your organization's
-# name or the intended use of these models
+# dbt_project.yml
 name: 'ordinary_shop'
 version: '1.0.0'
 
-# This setting configures which "profile" dbt uses for this project.
+
 profile: 'ordinary_shop'
 
-# These configurations specify where dbt should look for different types of files.
-# The `model-paths` config, for example, states that models in this project can be
-# found in the "models/" directory. You probably won't need to change these!
+
 model-paths: ["models"]
 analysis-paths: ["analyses"]
 test-paths: ["tests"]
@@ -34,9 +29,13 @@ models:
     # Config indicated by + and applies to all files under models/example/
     stg:
       +materialized: table
+      +required_tests: {"unique.*|not_null": 1}
+      +required_docs: true
+      
       ##+schema: stg_schema # understood as custom_schema on macro generate_schema_name
     int:
       +materialized: view
       # +schema: int_schema # understood as custom_schema on macro generate_schema_name
     mart:
       +materialized: table
+      
