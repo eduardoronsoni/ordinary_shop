@@ -34,7 +34,9 @@ models:
     # Config indicated by + and applies to all files under models/example/
     stg:
       +materialized: table
+      ##+schema: stg_schema # understood as custom_schema on macro generate_schema_name
     int:
       +materialized: view
+      # +schema: int_schema # understood as custom_schema on macro generate_schema_name
     mart:
       +materialized: table
