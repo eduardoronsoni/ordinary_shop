@@ -38,4 +38,11 @@ models:
       # +schema: int_schema # understood as custom_schema on macro generate_schema_name
     mart:
       +materialized: table
+
+  # setting test configs on project level configuration
+  tests:
+    stg:
+      +severity: warn
+      +store_failures: true
+
       

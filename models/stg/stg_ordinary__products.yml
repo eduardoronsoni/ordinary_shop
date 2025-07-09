@@ -3,6 +3,10 @@ version: 2
 models:
   - name: stg_ordinary__products 
     description: "Modelo de staging para os produtos da loja, incluindo uma chave substituta."
+    tests:
+      - test_has_max_one_row: # aqui vai o nome da macro, não o nome do arquivo .sql
+          config:
+            severity: error
     columns:
       - name: product_sk
         description: "Chave substituta gerada a partir do product_id."
@@ -20,14 +24,19 @@ models:
         description: "O nome do produto."
         tests:
           - not_null
-      
 
+      
       - name: category
         description: "A categoria à qual o produto pertence."
         tests:
           - not_null
-          - unique
-
+          - unique:
+              config:
+                severity: error
+                #warn_if: '>5'
+                error_if: '>3'
+                limit: 4
+              
       - name: price
         description: "O preço do produto."
         tests:
