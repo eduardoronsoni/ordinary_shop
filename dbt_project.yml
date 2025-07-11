@@ -15,7 +15,7 @@ snapshot-paths: ["snapshots"]
 
 clean-targets:         # directories to be removed by `dbt clean`
   - "target"
-  - "dbt_packages"
+  ##- "dbt_packages"
 
 
 # Configuring models
@@ -31,11 +31,11 @@ models:
       +materialized: table
       +required_tests: {"unique.*|not_null": 1}
       +required_docs: true
-      
+      ##+schema: "{{ var('override_schema', 'stg_schema') }}"
       ##+schema: stg_schema # understood as custom_schema on macro generate_schema_name
     int:
       +materialized: view
-      # +schema: int_schema # understood as custom_schema on macro generate_schema_name
+      +schema: int_schema # understood as custom_schema on macro generate_schema_name
     mart:
       +materialized: table
 
@@ -44,5 +44,10 @@ models:
     stg:
       +severity: warn
       +store_failures: true
+
+seeds:
+  ordinary_shop:
+    +schema: seed_schema
+
 
       

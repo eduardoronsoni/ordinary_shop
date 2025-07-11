@@ -1,0 +1,13 @@
+version: 2
+
+seeds:
+  - name: holidays
+    description: "Holidays data for the ordinary shop"
+    config:
+      schema: seed_schema 
+      #materialized: table redundant, seeds always materialize as tables
+    columns:
+      - name: data
+        description: "Date of the holiday in YYYY-MM-DD format"
+        tests:
+          - not_null
