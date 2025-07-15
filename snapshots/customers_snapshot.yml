@@ -1,0 +1,12 @@
+snapshots:
+  - name: customers_snapshot
+    relation: source('ordinary_shop', 'customers')
+    description: Snapshot of customers data from the ordinary_shop source.
+    config:
+      database: dbt-studies-462323
+      schema: snapshots
+      strategy: timestamp
+      unique_key: customer_id
+      updated_at: updated_at
+      #dbt_valid_to_current: '9999-12-31'
+      #hard_deletes: ignore | invalidate | new_record
