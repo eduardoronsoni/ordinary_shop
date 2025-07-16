@@ -2,8 +2,11 @@ version: 2
 
 models:
   - name: stg_ordinary__orders
+    config:
+      pre-hook:
+        - |
+          DROP TABLE dbt-studies-462323.ordinary_shop_dbt.hook_went_right
     columns:
-
       - name: order_id
         tests:
           - not_null
@@ -12,6 +15,3 @@ models:
       - name: customer_id
         tests:
           - not_null
-
-
-

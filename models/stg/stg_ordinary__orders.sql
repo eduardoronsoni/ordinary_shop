@@ -1,3 +1,17 @@
+{{
+  config(
+    materialized='table',
+    post_hook=[
+      "CREATE OR REPLACE TABLE `dbt-studies-462323.ordinary_shop_dbt.hook_went_right` (
+            log_id STRING DEFAULT GENERATE_UUID(),
+            model_name STRING,
+            event_timestamp TIMESTAMP,
+            message STRING
+          )"
+    ]
+  )
+}}
+
 with source_data as (
     select 
         order_id	

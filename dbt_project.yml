@@ -17,6 +17,13 @@ clean-targets:         # directories to be removed by `dbt clean`
   - "target"
   ##- "dbt_packages"
 
+on-run-start: 'CREATE OR REPLACE TABLE `dbt-studies-462323.ordinary_shop_dbt.hook_went_rig` (
+      log_id STRING DEFAULT GENERATE_UUID(),
+      model_name STRING,
+      event_timestamp TIMESTAMP,
+      message STRING
+    )'
+
 
 # Configuring models
 # Full documentation: https://docs.getdbt.com/docs/configuring-models
@@ -27,10 +34,22 @@ clean-targets:         # directories to be removed by `dbt clean`
 models:
   ordinary_shop:
     # Config indicated by + and applies to all files under models/example/
+
+
     stg:
       +materialized: table
       +required_tests: {"unique.*|not_null": 1}
       +required_docs: true
+
+      stg_ordinary__orders:
+        +pre-hook: | 
+          CREATE OR REPLACE TABLE `dbt-studies-462323.ordinary_shop_dbt.hook_went_right` (
+            log_id STRING DEFAULT GENERATE_UUID(),
+            model_name STRING,
+            event_timestamp TIMESTAMP,
+            message STRING
+          )
+       
       ##+schema: "{{ var('override_schema', 'stg_schema') }}"
       ##+schema: stg_schema # understood as custom_schema on macro generate_schema_name
     int:
