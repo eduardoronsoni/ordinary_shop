@@ -1,0 +1,59 @@
+version: 2
+
+sources:
+  - name: old_ordinary_shop
+    database: dbt-studies-462323
+    schema: source_data
+    # The freshness from the specific source tables overrides this generic configuration
+    freshness:
+      warn_after:
+        count: 1
+        period: hour
+      error_after:
+        count: 2
+        period: hour
+
+
+    tables:
+      - name: customers
+        freshness:
+          warn_after: 
+            count: 1 
+            period: day
+          error_after:
+            count: 3
+            period: day
+        loaded_at_field: "CAST(loaded_at AS TIMESTAMP)"
+
+
+      - name: orders
+        freshness:
+          warn_after: 
+            count: 1 
+            period: day 
+          error_after: 
+            count: 30
+            period: day
+        loaded_at_field: "CAST(loaded_at AS TIMESTAMP)"
+
+
+      - name: products
+        freshness:
+          warn_after:
+            count: 1
+            period: day
+          error_after:
+            count: 30
+            period: day
+        loaded_at_field: "CAST(loaded_at AS TIMESTAMP)"
+
+
+      - name: order_items
+        freshness:
+          warn_after: 
+            count: 1
+            period: day
+          error_after: 
+            count: 30
+            period: day
+        loaded_at_field: "CAST(loaded_at AS TIMESTAMP)"
